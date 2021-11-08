@@ -2,6 +2,7 @@ package fr.diginamic.banque.entites;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,7 +18,7 @@ public class Banque {
 	private int id;
 	private String nom;
 	
-	@OneToMany(mappedBy = "banque")
+	@OneToMany(mappedBy = "banque", cascade = CascadeType.ALL)
 	private Set<ClientBanque> clients;
 	
 	/**
@@ -68,6 +69,11 @@ public class Banque {
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-	
+	public void addClient(ClientBanque client) {
+		client.setBanque(this);
+	}
+	public void removeClient(ClientBanque client) {
+		client.setBanque(null);
+	}
 
 }

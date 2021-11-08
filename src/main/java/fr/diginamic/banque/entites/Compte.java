@@ -2,6 +2,7 @@ package fr.diginamic.banque.entites;
 
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,7 +27,7 @@ public class Compte {
 	@ManyToMany(mappedBy = "comptes")
 	private Set<ClientBanque> clients;
 	
-	@OneToMany(mappedBy = "compte")
+	@OneToMany(mappedBy = "compte", cascade = CascadeType.ALL)
 	private Set<Operation> operations;
 	
 	/**
@@ -103,6 +104,11 @@ public class Compte {
 	public void setSolde(double solde) {
 		this.solde = solde;
 	}
-	
+	public void addOperation(Operation operation) {
+		operation.setCompte(this);
+	}
+	public void removeOperation(Operation operation) {
+		operation.setCompte(null);
+	}
 	
 }

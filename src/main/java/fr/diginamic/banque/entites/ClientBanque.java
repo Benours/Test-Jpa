@@ -68,7 +68,11 @@ public class ClientBanque {
 	 * @param banque the banque to set
 	 */
 	public void setBanque(Banque banque) {
+		if (this.banque != null) 
+			this.banque.getClients().remove(this);
 		this.banque = banque;
+		if (this.banque != null) 
+			this.banque.getClients().add(this);
 	}
 
 	/**
