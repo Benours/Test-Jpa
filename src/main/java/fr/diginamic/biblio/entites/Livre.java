@@ -1,15 +1,19 @@
 package fr.diginamic.biblio.entites;
 
+import java.io.Serializable;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "livre")
-public class Livre {
+public class Livre implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,6 +21,8 @@ public class Livre {
 	private String titre;
 	@Column(length = 50)
 	private String auteur;
+	@ManyToMany(mappedBy = "livres")
+	private Set<Emprunt> emprunts;
 	/**
 	 * 
 	 */
@@ -28,6 +34,18 @@ public class Livre {
 	public Livre(String titre, String auteur) {
 		this.titre = titre;
 		this.auteur = auteur;
+	}
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
 	}
 	/**
 	 * @return the titre
