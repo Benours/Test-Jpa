@@ -24,6 +24,9 @@
 		<class>fr.diginamic.banque.entites.Operation</class>
 		<class>fr.diginamic.banque.entites.ClientBanque</class>
 		<class>fr.diginamic.banque.entites.Adresse</class>
+		<class>fr.diginamic.banque.entites.LivretA</class>
+		<class>fr.diginamic.banque.entites.AssuranceVie</class>
+		<class>fr.diginamic.banque.entites.Virement</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url"
 				value="jdbc:mysql://localhost:3306/banque" />

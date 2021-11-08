@@ -1,25 +1,40 @@
 package fr.diginamic.banque.entites;
 
 import java.sql.Timestamp;
+import java.util.Set;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "client")
 public class ClientBanque {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String nom;
 	private String prenom;
 	private Timestamp dateNaissance;
-	
+
+	@ManyToOne
+	@JoinColumn(name = "id_banque")
+	private Banque banque;
+
+	@ManyToMany
+	@JoinTable(name = "CLI_COM",
+	joinColumns = @JoinColumn(name = "id_cli", referencedColumnName = "ID"),
+	inverseJoinColumns = @JoinColumn(name = "id_com", referencedColumnName = "ID"))
+	private Set<Compte> comptes;
+
 	@Embedded
 	private Adresse adresse;
 
@@ -40,6 +55,34 @@ public class ClientBanque {
 		this.prenom = prenom;
 		this.dateNaissance = dateNaissance;
 		this.adresse = adresse;
+	}
+
+	/**
+	 * @return the banque
+	 */
+	public Banque getBanque() {
+		return banque;
+	}
+
+	/**
+	 * @param banque the banque to set
+	 */
+	public void setBanque(Banque banque) {
+		this.banque = banque;
+	}
+
+	/**
+	 * @return the comptes
+	 */
+	public Set<Compte> getComptes() {
+		return comptes;
+	}
+
+	/**
+	 * @param comptes the comptes to set
+	 */
+	public void setComptes(Set<Compte> comptes) {
+		this.comptes = comptes;
 	}
 
 	/**
@@ -111,5 +154,5 @@ public class ClientBanque {
 	public void setAdresse(Adresse adresse) {
 		this.adresse = adresse;
 	}
-	
+
 }

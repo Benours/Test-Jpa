@@ -6,11 +6,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 
 @Entity
 @Table(name = "operation")
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Operation {
 
 	@Id
@@ -19,6 +24,11 @@ public class Operation {
 	private Timestamp date;
 	private double montant;
 	private String motif;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_compte")
+	private Compte compte;
+	
 	/**
 	 * 
 	 */
@@ -33,6 +43,19 @@ public class Operation {
 		this.date = date;
 		this.montant = montant;
 		this.motif = motif;
+	}
+	
+	/**
+	 * @return the compte
+	 */
+	public Compte getCompte() {
+		return compte;
+	}
+	/**
+	 * @param compte the compte to set
+	 */
+	public void setCompte(Compte compte) {
+		this.compte = compte;
 	}
 	/**
 	 * @return the id
